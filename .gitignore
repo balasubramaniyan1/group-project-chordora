@@ -1,0 +1,7 @@
+node_modules/
+Recommended full ignore list(optional):
+node_modules/
+.env
+.vscode/
+dist/
+build/
