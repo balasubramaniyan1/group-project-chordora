@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chordora | My Library</title>
+
+    <link rel="stylesheet" href="../css/library.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <a href="index.html" class="brand">
+            <img src="../../Images/logo/logo.jpeg" alt="Chordora Logo">
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="search.html">Analyze</a>
+            <a href="library.html" class="active">Library</a>
+            <a href="playlist.html">Playlists</a>
+        </nav>
+
+        <a href="login.html" class="sign-in">
+            Sign In
+        </a>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main>
+
+        <section class="library-hero">
+
+            <div>
+                <p class="eyebrow">YOUR MUSIC COLLECTION</p>
+
+                <h1>
+                    My <span>Library</span>
+                </h1>
+
+                <p class="description">
+                    Your saved songs and chord sheets,
+                    all in one peaceful workspace.
+                </p>
+            </div>
+
+            <a href="search.html" class="analyze-btn">
+                + Analyze Song
+            </a>
+
+        </section>
+
+
+        <!-- SEARCH -->
+
+        <section class="library-tools">
+
+            <div class="search-box">
+
+                <span>⌕</span>
+
+                <input
+                    type="search"
+                    placeholder="Search your songs..."
+                    id="library-search">
+
+            </div>
+
+            <select id="sort-songs">
+
+                <option value="recent">
+                    Recently Added
+                </option>
+
+                <option value="az">
+                    A - Z
+                </option>
+
+                <option value="key">
+                    By Key
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <!-- STATS -->
+
+        <section class="library-stats">
+
+            <div class="stat-card">
+
+                <span class="stat-icon blue">
+                    ♫
+                </span>
+
+                <div>
+                    <strong>12</strong>
+                    <p>Saved Songs</p>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-icon purple">
+                    ♬
+                </span>
+
+                <div>
+                    <strong>8</strong>
+                    <p>Chord Sheets</p>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-icon gold">
+                    ♪
+                </span>
+
+                <div>
+                    <strong>4</strong>
+                    <p>Playlists</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SAVED SONGS -->
+
+        <section class="songs-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        YOUR SAVED MUSIC
+                    </p>
+
+                    <h2>
+                        Saved Songs
+                    </h2>
+
+                </div>
+
+                <span class="song-count">
+                    12 songs
+                </span>
+
+            </div>
+
+
+            <div
+                class="song-grid"
+                id="song-grid">
+
+            </div>
+
+        </section>
+
+
+        <!-- MESSAGE -->
+
+        <section class="library-message">
+
+            <div class="message-icon">
+                ♡
+            </div>
+
+            <div>
+
+                <h3>
+                    Keep building your collection
+                </h3>
+
+                <p>
+                    Analyze more songs and save their
+                    chord sheets here.
+                </p>
+
+            </div>
+
+            <a href="search.html">
+                Find a Song →
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-brand">
+
+            <img
+                src="../../Images/logo/logo.jpeg"
+                alt="Chordora Logo">
+
+            <p>
+                Your music. Your chords.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="search.html">
+                Analyze
+            </a>
+
+            <a href="library.html">
+                Library
+            </a>
+
+            <a href="playlist.html">
+                Playlists
+            </a>
+
+        </div>
+
+
+        <p class="copyright">
+            © 2026 Chordora
+        </p>
+
+    </footer>
+
+
+    <script src="../javascript/script.js"></script>
+    <script src="../javascript/library.js"></script>
+
+</body>
+
+</html>
