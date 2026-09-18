@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chordora | Login / Sign Up</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/login_signup.css">
+</head>
+
+<body>
+
+    <main class="auth-page">
+
+        <!-- Background Glow -->
+        <div class="bg-glow glow-one"></div>
+        <div class="bg-glow glow-two"></div>
+
+        <!-- Chordora Logo -->
+        <a href="../../index.html" class="brand">
+            <img
+                src="../../assests/images/mainlogo.png"
+                alt="Chordora Logo"
+            >
+            <span>CHORDORA</span>
+        </a>
+
+
+        <!-- ACCOUNT TYPE CARD -->
+
+        <section class="choice-card" id="choiceCard">
+
+            <div class="auth-heading">
+
+                <span class="eyebrow">
+                    YOUR MUSIC · YOUR CHORDS
+                </span>
+
+                <h1>
+                    Welcome to
+                    <span>Chordora.</span>
+                </h1>
+
+                <p>
+                    Before we begin, tell us how you want
+                    to use Chordora.
+                </p>
+
+            </div>
+
+
+            <div class="choice-buttons">
+
+                <!-- New User -->
+
+                <button
+                    class="choice-button"
+                    id="signupChoice"
+                >
+
+                    <div class="choice-icon">
+                        +
+                    </div>
+
+                    <div class="choice-text">
+                        <small>NEW TO CHORDORA?</small>
+                        <strong>Create New Account</strong>
+                        <span>Join and start your music journey.</span>
+                    </div>
+
+                    <b>→</b>
+
+                </button>
+
+
+                <!-- Existing User -->
+
+                <button
+                    class="choice-button"
+                    id="loginChoice"
+                >
+
+                    <div class="choice-icon existing">
+                        ♙
+                    </div>
+
+                    <div class="choice-text">
+                        <small>ALREADY A USER?</small>
+                        <strong>Login to Your Account</strong>
+                        <span>Continue where you left off.</span>
+                    </div>
+
+                    <b>→</b>
+
+                </button>
+
+            </div>
+
+
+            <div class="auth-footer">
+                <span>♪</span>
+                <p>Your music. Your chords.</p>
+                <span>♪</span>
+            </div>
+
+        </section>
+
+
+        <!-- SIGN UP CARD -->
+
+        <section class="auth-card" id="signupCard">
+
+            <button
+                class="back-button"
+                id="signupBack"
+            >
+                ← Back
+            </button>
+
+            <div class="auth-heading">
+
+                <span class="eyebrow">
+                    CREATE YOUR ACCOUNT
+                </span>
+
+                <h1>
+                    Join
+                    <span>Chordora.</span>
+                </h1>
+
+                <p>
+                    Create your account and keep your
+                    favorite music in one place.
+                </p>
+
+            </div>
+
+
+            <form id="signupForm">
+
+                <!-- Username -->
+
+                <div class="input-group">
+
+                    <label for="signupUsername">
+                        Username
+                    </label>
+
+                    <div class="input-box">
+
+                        <span>♙</span>
+
+                        <input
+                            type="text"
+                            id="signupUsername"
+                            placeholder="Enter your username"
+                        >
+
+                    </div>
+
+                    <small
+                        class="error"
+                        id="signupUsernameError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="input-group">
+
+                    <label for="signupEmail">
+                        Email
+                    </label>
+
+                    <div class="input-box">
+
+                        <span>✉</span>
+
+                        <input
+                            type="email"
+                            id="signupEmail"
+                            placeholder="Enter your email"
+                        >
+
+                    </div>
+
+                    <small
+                        class="error"
+                        id="signupEmailError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="input-group">
+
+                    <label for="signupPassword">
+                        Password
+                    </label>
+
+                    <div class="input-box">
+
+                        <span>⌑</span>
+
+                        <input
+                            type="password"
+                            id="signupPassword"
+                            placeholder="Create a password"
+                        >
+
+                    </div>
+
+                    <small
+                        class="error"
+                        id="signupPasswordError"
+                    ></small>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="proceed-button"
+                >
+                    <span>Create Account</span>
+                    <b>→</b>
+                </button>
+
+            </form>
+
+
+            <div class="auth-footer">
+                <span>♪</span>
+                <p>Start your music journey.</p>
+                <span>♪</span>
+            </div>
+
+        </section>
+
+
+        <!-- LOGIN CARD -->
+
+        <section class="auth-card" id="loginCard">
+
+            <button
+                class="back-button"
+                id="loginBack"
+            >
+                ← Back
+            </button>
+
+            <div class="auth-heading">
+
+                <span class="eyebrow">
+                    WELCOME BACK
+                </span>
+
+                <h1>
+                    Login to
+                    <span>Chordora.</span>
+                </h1>
+
+                <p>
+                    Continue exploring songs,
+                    chords and playlists.
+                </p>
+
+            </div>
+
+
+            <form id="loginForm">
+
+                <!-- Username -->
+
+                <div class="input-group">
+
+                    <label for="loginUsername">
+                        Username
+                    </label>
+
+                    <div class="input-box">
+
+                        <span>♙</span>
+
+                        <input
+                            type="text"
+                            id="loginUsername"
+                            placeholder="Enter your username"
+                        >
+
+                    </div>
+
+                    <small
+                        class="error"
+                        id="loginUsernameError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="input-group">
+
+                    <label for="loginEmail">
+                        Email
+                    </label>
+
+                    <div class="input-box">
+
+                        <span>✉</span>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            placeholder="Enter your email"
+                        >
+
+                    </div>
+
+                    <small
+                        class="error"
+                        id="loginEmailError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="input-group">
+
+                    <label for="loginPassword">
+                        Password
+                    </label>
+
+                    <div class="input-box">
+
+                        <span>⌑</span>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter your password"
+                        >
+
+                    </div>
+
+                    <small
+                        class="error"
+                        id="loginPasswordError"
+                    ></small>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="proceed-button"
+                >
+                    <span>Proceed</span>
+                    <b>→</b>
+                </button>
+
+            </form>
+
+
+            <div class="auth-footer">
+                <span>♪</span>
+                <p>Good to have you back.</p>
+                <span>♪</span>
+            </div>
+
+        </section>
+
+
+        <!-- Copyright -->
+
+        <p class="copyright">
+            © 2026 Chordora · Your music. Your chords.
+        </p>
+
+    </main>
+
+
+    <!-- JavaScript -->
+    <script src="../js/login_signup.js"></script>
+
+</body>
+</html>
