@@ -4,29 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Chordora | Your Music. Your Chords.</title>
-
 <script src="https://cdn.tailwindcss.com"></script>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="frontend/css/home.css">
 </head>
-
 <body>
 
 <header class="navbar">
-
 <nav class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+<a href="#" class="logo"><img src="assests/images/mainlogo.png" alt="Chordora"><span>CHORDORA</span></a>
 
-<a href="#" class="logo">
-<img src="assests/images/mainlogo.png" alt="Chordora">
-<span>CHORDORA</span>
-</a>
-
-<div class="hidden md:flex items-center gap-8">
+<div class="desktop-nav hidden md:flex items-center gap-8">
 <a href="#home" class="nav-link active">Home</a>
 <a href="#analyze" class="nav-link">Analyze</a>
 <a href="#how" class="nav-link">How It Works</a>
@@ -34,421 +24,161 @@
 <a href="#analyze" class="nav-button">Start Analyzing ↗</a>
 </div>
 
-<button class="md:hidden text-white text-2xl">☰</button>
+<button id="mobileMenuButton" class="mobile-menu-button" type="button" aria-label="Open menu" aria-expanded="false">⋮</button>
 
+<div id="mobileMenu" class="mobile-menu">
+<a href="#home" class="mobile-menu-link">Home</a>
+<a href="#analyze" class="mobile-menu-link">Analyze</a>
+<a href="#how" class="mobile-menu-link">How It Works</a>
+<a href="#features" class="mobile-menu-link">Features</a>
+<a href="frontend/html/library.html" class="mobile-menu-link">Library</a>
+<a href="frontend/html/playlist.html" class="mobile-menu-link">Playlist</a>
+<a href="#analyze" class="mobile-menu-button-link">Start Analyzing ↗</a>
+</div>
 </nav>
 
 <div class="second-nav">
 <div class="max-w-7xl mx-auto px-6 second-nav-content">
-
 <div class="second-links">
-<a href="frontend/html/library.html" class="sub-link">
-<span>♫</span> Library
-</a>
-
-<a href="frontend/html/playlist.html" class="sub-link">
-<span>♪</span> Playlist
-</a>
+<a href="frontend/html/library.html" class="sub-link"><span>♫</span> Library</a>
+<a href="frontend/html/playlist.html" class="sub-link"><span>♪</span> Playlist</a>
 </div>
-
 <div class="nav-search">
 <span>⌕</span>
-<input
-    type="search"
-    id="songSearch"
-    placeholder="Search songs..."
-    autocomplete="off"
->
-</div>
-
+<input type="search" id="songSearch" placeholder="Search songs..." autocomplete="off">
 </div>
 </div>
-
+</div>
 </header>
 
 <main id="home">
 
 <section class="hero max-w-7xl mx-auto px-6">
-
 <div class="hero-content">
-
 <span class="eyebrow">YOUR MUSIC · YOUR CHORDS</span>
-
-<h1>
-Hear it.
-<span>Play it.</span>
-<b>Own it.</b>
-</h1>
-
-<p>
-Turn your favorite songs into clear, playable chord progressions.
-Paste a YouTube link and discover the music behind the song.
-</p>
-
+<h1>Hear it.<span>Play it.</span><b>Own it.</b></h1>
+<p>Turn your favorite songs into clear, playable chord progressions. Paste a YouTube link and discover the music behind the song.</p>
 <div class="hero-buttons">
 <a href="#analyze" class="primary-btn">Analyze a Song →</a>
 <a href="#how" class="secondary-btn">How it works</a>
 </div>
-
-<div class="hero-info">
-♪ Built for musicians <i></i> Fast · Simple · Playable
-</div>
-
+<div class="hero-info">♪ Built for musicians <i></i> Fast · Simple · Playable</div>
 </div>
 
 <div class="hero-logo">
-
 <div class="glow"></div>
-
 <div class="logo-box">
-
 <img src="assests/images/logo.jpeg" alt="Chordora Logo">
-
-<!-- LOGIN / SIGN UP BUTTON -->
 <div class="login-bar" id="loginBar">
-
-    <div class="login-symbol" id="loginSymbol">
-        ♙
-    </div>
-
-    <div class="login-text">
-        <small id="loginSmall">WELCOME TO CHORDORA</small>
-        <strong id="loginText">Login / Sign Up</strong>
-    </div>
-
-    <div class="login-arrow" id="loginArrow">
-        →
-    </div>
-
+<div class="login-symbol" id="loginSymbol">♙</div>
+<div class="login-text"><small id="loginSmall">WELCOME TO CHORDORA</small><strong id="loginText">Login / Sign Up</strong></div>
+<div class="login-arrow" id="loginArrow">→</div>
 </div>
-
 </div>
 
 <div class="music-card">
-
 <div class="music-icon">♫</div>
-
-<div>
-<small>NOW PLAYING</small>
-<strong>Your next song</strong>
+<div><small>NOW PLAYING</small><strong>Your next song</strong></div>
+<div class="bars"><i></i><i></i><i></i><i></i><i></i></div>
 </div>
-
-<div class="bars">
-<i></i><i></i><i></i><i></i><i></i>
 </div>
-
-</div>
-
-</div>
-
 </section>
-
 
 <section id="analyze" class="section max-w-6xl mx-auto px-6">
-
 <div class="heading">
-
 <span class="eyebrow">START WITH A SONG</span>
-
-<h2>
-Drop a link.
-<span>Find the chords.</span>
-</h2>
-
-<p>
-Paste a YouTube URL and explore the song's chord progression in seconds.
-</p>
-
+<h2>Drop a link.<span>Find the chords.</span></h2>
+<p>Paste a YouTube URL and explore the song's chord progression in seconds.</p>
 </div>
-
 <div class="analyze-box">
-
 <div class="youtube-icon">▶</div>
-
-<div class="url-area">
-<label>YouTube URL</label>
-<input type="url" placeholder="https://youtube.com/watch?v=...">
+<div class="url-area"><label>YouTube URL</label><input type="url" placeholder="https://youtube.com/watch?v=..."></div>
+<button class="analyze-btn">Analyze →</button>
 </div>
-
-<button class="analyze-btn">
-Analyze →
-</button>
-
-</div>
-
-<div class="analyze-note">
-<span>Try it with any YouTube music link</span>
-<a href="#">Use demo song ↗</a>
-</div>
-
+<div class="analyze-note"><span>Try it with any YouTube music link</span><a href="#">Use demo song ↗</a></div>
 </section>
-
 
 <section class="section max-w-6xl mx-auto px-6">
-
 <div class="result-card">
-
 <div class="result-header">
-
-<div>
-<span class="result-label">ANALYSIS RESULT</span>
-<h3>Perfect — Ed Sheeran</h3>
-<p>Key: C · 96 BPM</p>
-</div>
-
+<div><span class="result-label">ANALYSIS RESULT</span><h3>Perfect — Ed Sheeran</h3><p>Key: C · 96 BPM</p></div>
 <button class="save">♡ Save Song</button>
-
 </div>
-
-<div class="progression-title">
-<span>CHORD PROGRESSION</span>
-<small>Demo Analysis</small>
-</div>
-
+<div class="progression-title"><span>CHORD PROGRESSION</span><small>Demo Analysis</small></div>
 <div class="chords">
-
-<div class="chord">
-<small>01</small>
-<strong>C</strong>
-<span>0:12</span>
+<div class="chord"><small>01</small><strong>C</strong><span>0:12</span></div>
+<div class="chord"><small>02</small><strong>G</strong><span>0:26</span></div>
+<div class="chord"><small>03</small><strong>Am</strong><span>0:41</span></div>
+<div class="chord"><small>04</small><strong>F</strong><span>0:57</span></div>
 </div>
-
-<div class="chord">
-<small>02</small>
-<strong>G</strong>
-<span>0:26</span>
-</div>
-
-<div class="chord">
-<small>03</small>
-<strong>Am</strong>
-<span>0:41</span>
-</div>
-
-<div class="chord">
-<small>04</small>
-<strong>F</strong>
-<span>0:57</span>
-</div>
-
-</div>
-
 <div class="controls">
-
-<div>
-<span>Transpose</span>
-<button>−</button>
-<b>C</b>
-<button>+</button>
+<div><span>Transpose</span><button>−</button><b>C</b><button>+</button></div>
+<button class="play">♫ Play Along Mode</button>
 </div>
-
-<button class="play">
-♫ Play Along Mode
-</button>
-
 </div>
-
-</div>
-
 </section>
-
 
 <section id="how" class="section max-w-7xl mx-auto px-6">
-
 <div class="heading left">
-
 <span class="eyebrow">THE SIMPLE PART</span>
-
-<h2>
-From song to
-<span>chords in three moves.</span>
-</h2>
-
+<h2>From song to<span>chords in three moves.</span></h2>
 </div>
-
 <div class="steps">
-
-<article>
-<small>01</small>
-<div class="step-icon">↗</div>
-<h3>Paste your song</h3>
-<p>Add the YouTube link of the song you want to learn.</p>
-</article>
-
-<article>
-<small>02</small>
-<div class="step-icon">⌁</div>
-<h3>Let it analyze</h3>
-<p>Chordora converts the music into an easy chord progression.</p>
-</article>
-
-<article>
-<small>03</small>
-<div class="step-icon">♫</div>
-<h3>Pick up & play</h3>
-<p>Transpose, practice and save your favorite songs.</p>
-</article>
-
+<article><small>01</small><div class="step-icon">↗</div><h3>Paste your song</h3><p>Add the YouTube link of the song you want to learn.</p></article>
+<article><small>02</small><div class="step-icon">⌁</div><h3>Let it analyze</h3><p>Chordora converts the music into an easy chord progression.</p></article>
+<article><small>03</small><div class="step-icon">♫</div><h3>Pick up & play</h3><p>Transpose, practice and save your favorite songs.</p></article>
 </div>
-
 </section>
-
 
 <section id="features" class="section max-w-7xl mx-auto px-6">
-
 <div class="heading left">
-
 <span class="eyebrow">MADE TO PLAY</span>
-
-<h2>
-Everything you need.
-<span>Nothing in the way.</span>
-</h2>
-
+<h2>Everything you need.<span>Nothing in the way.</span></h2>
 </div>
-
 <div class="features">
-
-<article>
-<div>♯</div>
-<h3>Transpose instantly</h3>
-<p>Change the key to match your voice or instrument.</p>
-</article>
-
-<article>
-<div>♡</div>
-<h3>Save your songs</h3>
-<p>Keep your favorite chord sheets in one place.</p>
-</article>
-
-<article>
-<div>⌕</div>
-<h3>Find it fast</h3>
-<p>Search your saved songs whenever inspiration strikes.</p>
-</article>
-
+<article><div>♯</div><h3>Transpose instantly</h3><p>Change the key to match your voice or instrument.</p></article>
+<article><div>♡</div><h3>Save your songs</h3><p>Keep your favorite chord sheets in one place.</p></article>
+<article><div>⌕</div><h3>Find it fast</h3><p>Search your saved songs whenever inspiration strikes.</p></article>
 </div>
-
 </section>
 
-
-<!-- SONG SEARCH RESULTS -->
-
 <section id="songResults" class="section song-results max-w-6xl mx-auto px-6">
-
 <div class="heading">
 <span class="eyebrow">SEARCH RESULT</span>
-
-<h2>
-Find your song.
-<span>Play the chords.</span>
-</h2>
-
-<p id="searchMessage">
-Search for one of the available Tamil songs.
-</p>
+<h2>Find your song.<span>Play the chords.</span></h2>
+<p id="searchMessage">Search for one of the available Tamil songs.</p>
 </div>
-
 
 <div id="songResultCard" class="song-result-card">
-
 <div class="song-result-header">
-
-<div>
-<span class="result-label">SONG FOUND</span>
-<h3 id="songTitle">Munbe Vaa</h3>
-<p id="songArtist">Tamil Song · Simplified Chords</p>
+<div><span class="result-label">SONG FOUND</span><h3 id="songTitle">Munbe Vaa</h3><p id="songArtist">Tamil Song · Simplified Chords</p></div>
+<div class="song-language">TAMIL</div>
 </div>
-
-<div class="song-language">
-TAMIL
+<div class="progression-title"><span>CHORD PROGRESSION</span><small id="songKey">Key: C</small></div>
+<div id="songChords" class="chords"></div>
+<div class="song-info"><div><span>PLAYING MODE</span><strong>Simplified chord arrangement</strong></div><button class="play">♫ Play Along Mode</button></div>
 </div>
-
-</div>
-
-
-<div class="progression-title">
-
-<span>CHORD PROGRESSION</span>
-
-<small id="songKey">
-Key: C
-</small>
-
-</div>
-
-
-<div id="songChords" class="chords">
-
-<!-- Chords inserted by JavaScript -->
-
-</div>
-
-
-<div class="song-info">
-
-<div>
-<span>PLAYING MODE</span>
-<strong>Simplified chord arrangement</strong>
-</div>
-
-<button class="play">
-♫ Play Along Mode
-</button>
-
-</div>
-
-</div>
-
 </section>
 
 <section class="cta max-w-6xl mx-auto px-6">
-
 <span class="eyebrow">READY WHEN YOU ARE</span>
-
-<h2>
-Your next favorite song
-<span>is waiting to be played.</span>
-</h2>
-
+<h2>Your next favorite song<span>is waiting to be played.</span></h2>
 <p>Stop searching for chords. Start making music.</p>
-
-<a href="#analyze" class="primary-btn">
-Analyze a Song →
-</a>
-
+<a href="#analyze" class="primary-btn">Analyze a Song →</a>
 </section>
 
 </main>
 
-
 <footer>
-
 <div class="max-w-7xl mx-auto px-6 py-8">
-
 <div class="footer-content">
-
-<div class="logo">
-<img src="assests/images/mainlogo.png" alt="">
-<span>CHORDORA</span>
-</div>
-
+<div class="logo"><img src="assests/images/mainlogo.png" alt=""><span>CHORDORA</span></div>
 <p>© 2026 Chordora. Made for music lovers.</p>
-
-<div>
-<a href="#home">Home</a>
-<a href="#analyze">Analyze</a>
-<a href="#features">Features</a>
+<div><a href="#home">Home</a><a href="#analyze">Analyze</a><a href="#features">Features</a></div>
 </div>
-
 </div>
-
-</div>
-
 </footer>
 
-
 <script src="frontend/js/script.js"></script>
-
 </body>
 </html>

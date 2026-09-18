@@ -1,396 +1,245 @@
-/* =================================
-   CHORDORA LOGIN + LOGOUT SYSTEM
-================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function(){
 
-    const loginBar =
-        document.getElementById("loginBar");
+/* LOGIN / LOGOUT */
 
-    const loginSymbol =
-        document.getElementById("loginSymbol");
+const loginBar=document.getElementById("loginBar");
+const loginSymbol=document.getElementById("loginSymbol");
+const loginSmall=document.getElementById("loginSmall");
+const loginText=document.getElementById("loginText");
+const loginArrow=document.getElementById("loginArrow");
 
-    const loginSmall =
-        document.getElementById("loginSmall");
+function updateLogin(){
+    const loggedIn=localStorage.getItem("chordoraUserLoggedIn")==="true";
 
-    const loginText =
-        document.getElementById("loginText");
-
-    const loginArrow =
-        document.getElementById("loginArrow");
-
-
-    /* ================= LOGIN STATE ================= */
-
-    const isLoggedIn =
-        localStorage.getItem("chordoraUserLoggedIn");
-
-
-    /* ================= LOGGED IN ================= */
-
-    if (isLoggedIn === "true") {
-
-        loginSmall.textContent =
-            "WELCOME BACK";
-
-        loginText.textContent =
-            "Logout";
-
-        loginSymbol.textContent =
-            "✓";
-
-        loginArrow.textContent =
-            "↗";
-
+    if(loggedIn){
+        loginSmall.textContent="WELCOME BACK";
+        loginText.textContent="Logout";
+        loginSymbol.textContent="✓";
+        loginArrow.textContent="↗";
         loginBar.classList.add("logout-mode");
-
-
-        /* ================= LOGOUT ================= */
-
-        loginBar.addEventListener(
-            "click",
-            function () {
-
-                const confirmLogout =
-                    confirm(
-                        "Are you sure you want to logout?"
-                    );
-
-
-                if (confirmLogout) {
-
-                    /* Remove login state */
-
-                    localStorage.removeItem(
-                        "chordoraUserLoggedIn"
-                    );
-
-
-                    /* Return button to Login */
-
-                    loginSmall.textContent =
-                        "WELCOME TO CHORDORA";
-
-                    loginText.textContent =
-                        "Login / Sign Up";
-
-                    loginSymbol.textContent =
-                        "♙";
-
-                    loginArrow.textContent =
-                        "→";
-
-                    loginBar.classList.remove(
-                        "logout-mode"
-                    );
-
-
-                    /* Make it open login page again */
-
-                    loginBar.onclick = function () {
-
-                        window.location.href =
-                            "frontend/html/login_signup.html";
-
-                    };
-
-                }
-
-            }
-        );
-
+    }else{
+        loginSmall.textContent="WELCOME TO CHORDORA";
+        loginText.textContent="Login / Sign Up";
+        loginSymbol.textContent="♙";
+        loginArrow.textContent="→";
+        loginBar.classList.remove("logout-mode");
     }
+}
 
+if(loginBar){
+    updateLogin();
 
-    /* ================= LOGGED OUT ================= */
+    loginBar.addEventListener("click",function(){
+        const loggedIn=localStorage.getItem("chordoraUserLoggedIn")==="true";
 
-    else {
-
-        loginBar.addEventListener(
-            "click",
-            function () {
-
-                window.location.href =
-                    "frontend/html/login_signup.html";
-
+        if(loggedIn){
+            if(confirm("Are you sure you want to logout?")){
+                localStorage.removeItem("chordoraUserLoggedIn");
+                updateLogin();
             }
-        );
-
-    }
-
-
-    /* ================= SONG DATABASE ================= */
-
-    const songs = [
-
-        {
-            title: "Munbe Vaa",
-            artist: "Sillunu Oru Kadhal",
-            key: "C",
-            chords: ["C", "G", "Am", "F"]
-        },
-
-        {
-            title: "Vaseegara",
-            artist: "Minnale",
-            key: "G",
-            chords: ["G", "Em", "C", "D"]
-        },
-
-        {
-            title: "Maruvaarthai",
-            artist: "Enai Noki Paayum Thota",
-            key: "C",
-            chords: ["C", "Am", "F", "G"]
-        },
-
-        {
-            title: "Why This Kolaveri Di",
-            artist: "3",
-            key: "Am",
-            chords: ["Am", "F", "G", "Em"]
+        }else{
+            window.location.href="frontend/html/login_signup.html";
         }
-
-    ];
-
-
-    /* ================= SEARCH ELEMENTS ================= */
-
-    const songSearch =
-        document.getElementById("songSearch");
-
-    const songResults =
-        document.getElementById("songResults");
-
-    const songResultCard =
-        document.getElementById("songResultCard");
-
-    const songTitle =
-        document.getElementById("songTitle");
-
-    const songArtist =
-        document.getElementById("songArtist");
-
-    const songKey =
-        document.getElementById("songKey");
-
-    const songChords =
-        document.getElementById("songChords");
-
-    const searchMessage =
-        document.getElementById("searchMessage");
+    });
+}
 
 
-    if (!songSearch) {
+/* THREE DOT MENU */
+
+const menuButton=document.getElementById("mobileMenuButton");
+const mobileMenu=document.getElementById("mobileMenu");
+
+if(menuButton && mobileMenu){
+
+    menuButton.addEventListener("click",function(event){
+        event.stopPropagation();
+        mobileMenu.classList.toggle("active");
+
+        const open=mobileMenu.classList.contains("active");
+        menuButton.setAttribute("aria-expanded",open);
+    });
+
+    mobileMenu.querySelectorAll("a").forEach(function(link){
+        link.addEventListener("click",function(){
+            mobileMenu.classList.remove("active");
+            menuButton.setAttribute("aria-expanded","false");
+        });
+    });
+
+    document.addEventListener("click",function(event){
+        if(!mobileMenu.contains(event.target) &&
+           !menuButton.contains(event.target)){
+            mobileMenu.classList.remove("active");
+            menuButton.setAttribute("aria-expanded","false");
+        }
+    });
+
+    document.addEventListener("keydown",function(event){
+        if(event.key==="Escape"){
+            mobileMenu.classList.remove("active");
+            menuButton.setAttribute("aria-expanded","false");
+        }
+    });
+}
+
+
+/* SONG DATABASE */
+
+const songs=[
+{
+title:"Munbe Vaa",
+artist:"Sillunu Oru Kadhal",
+key:"C",
+chords:["C","G","Am","F"]
+},
+{
+title:"Vaseegara",
+artist:"Minnale",
+key:"G",
+chords:["G","Em","C","D"]
+},
+{
+title:"Maruvaarthai",
+artist:"Enai Noki Paayum Thota",
+key:"C",
+chords:["C","Am","F","G"]
+},
+{
+title:"Why This Kolaveri Di",
+artist:"3",
+key:"Am",
+chords:["Am","F","G","Em"]
+}
+];
+
+
+/* SEARCH ELEMENTS */
+
+const songSearch=document.getElementById("songSearch");
+const songResults=document.getElementById("songResults");
+const songResultCard=document.getElementById("songResultCard");
+const songTitle=document.getElementById("songTitle");
+const songArtist=document.getElementById("songArtist");
+const songKey=document.getElementById("songKey");
+const songChords=document.getElementById("songChords");
+const searchMessage=document.getElementById("searchMessage");
+
+if(!songSearch)return;
+
+
+/* SHOW SONG */
+
+function showSong(song){
+
+    songTitle.textContent=song.title;
+    songArtist.textContent=song.artist+" · Simplified Chords";
+    songKey.textContent="Key: "+song.key;
+    songChords.innerHTML="";
+
+    song.chords.forEach(function(chord,index){
+
+        const box=document.createElement("div");
+        box.className="chord";
+
+        box.innerHTML=`
+            <small>${String(index+1).padStart(2,"0")}</small>
+            <strong>${chord}</strong>
+            <span>Chord ${index+1}</span>
+        `;
+
+        songChords.appendChild(box);
+    });
+
+    songResultCard.classList.remove("empty");
+    songResultCard.classList.add("search-highlight");
+
+    searchMessage.textContent=
+        "Here are the simplified playable chords for your song.";
+
+    setTimeout(function(){
+        songResultCard.classList.remove("search-highlight");
+    },1200);
+}
+
+
+/* NO RESULT */
+
+function showNoResult(text){
+
+    songTitle.textContent="Song not found";
+    songArtist.textContent="Try one of the available Tamil songs.";
+    songKey.textContent="";
+
+    songChords.innerHTML=`
+        <div class="chord">
+            <small>SEARCH</small>
+            <strong>?</strong>
+            <span>No matching song</span>
+        </div>
+    `;
+
+    songResultCard.classList.remove("empty");
+
+    searchMessage.textContent=
+        'No song found for "'+text+
+        '". Try Munbe Vaa, Vaseegara, Maruvaarthai or Why This Kolaveri Di.';
+}
+
+
+/* SEARCH */
+
+function searchSong(){
+
+    const text=songSearch.value.trim().toLowerCase();
+
+    if(text===""){
+        songResultCard.classList.add("empty");
         return;
     }
 
+    const found=songs.find(function(song){
+        return song.title.toLowerCase().includes(text) ||
+               song.artist.toLowerCase().includes(text);
+    });
 
-    /* ================= DISPLAY SONG ================= */
+    songResults.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
 
-    function showSong(song) {
-
-        songTitle.textContent =
-            song.title;
-
-        songArtist.textContent =
-            song.artist +
-            " · Simplified Chords";
-
-        songKey.textContent =
-            "Key: " + song.key;
-
-        songChords.innerHTML = "";
-
-
-        song.chords.forEach(
-            function (chord, index) {
-
-                const chordBox =
-                    document.createElement("div");
-
-                chordBox.className =
-                    "chord";
-
-                chordBox.innerHTML = `
-                    <small>
-                        ${String(index + 1).padStart(2, "0")}
-                    </small>
-
-                    <strong>
-                        ${chord}
-                    </strong>
-
-                    <span>
-                        Chord ${index + 1}
-                    </span>
-                `;
-
-                songChords.appendChild(
-                    chordBox
-                );
-
-            }
-        );
+    if(found){
+        showSong(found);
+    }else{
+        showNoResult(text);
+    }
+}
 
 
-        songResultCard.classList.remove(
-            "empty"
-        );
+/* ENTER SEARCH */
 
-        songResultCard.classList.add(
-            "search-highlight"
-        );
+songSearch.addEventListener("keydown",function(event){
 
-        searchMessage.textContent =
-            "Here are the simplified playable chords for your song.";
-
-
-        setTimeout(
-            function () {
-
-                songResultCard.classList.remove(
-                    "search-highlight"
-                );
-
-            },
-            1200
-        );
-
+    if(event.key==="Enter"){
+        event.preventDefault();
+        searchSong();
     }
 
+});
 
-    /* ================= NO RESULT ================= */
 
-    function showNoResult(searchText) {
+/* CLEAR SEARCH */
 
-        songTitle.textContent =
-            "Song not found";
+songSearch.addEventListener("input",function(){
 
-        songArtist.textContent =
-            "Try one of the available Tamil songs.";
+    if(songSearch.value.trim()===""){
 
-        songKey.textContent = "";
+        songResultCard.classList.add("empty");
 
-        songChords.innerHTML = `
-            <div class="chord">
-                <small>SEARCH</small>
-                <strong>?</strong>
-                <span>No matching song</span>
-            </div>
-        `;
-
-        songResultCard.classList.remove(
-            "empty"
-        );
-
-        searchMessage.textContent =
-            'No song found for "' +
-            searchText +
-            '". Try Munbe Vaa, Vaseegara, Maruvaarthai or Why This Kolaveri Di.';
-
+        searchMessage.textContent=
+            "Search for one of the available Tamil songs.";
     }
 
-
-    /* ================= SEARCH SONG ================= */
-
-    function searchSong() {
-
-        const searchText =
-            songSearch.value.trim().toLowerCase();
-
-
-        if (searchText === "") {
-
-            songResultCard.classList.add(
-                "empty"
-            );
-
-            return;
-
-        }
-
-
-        const foundSong =
-            songs.find(
-                function (song) {
-
-                    return (
-                        song.title
-                            .toLowerCase()
-                            .includes(searchText) ||
-
-                        song.artist
-                            .toLowerCase()
-                            .includes(searchText)
-                    );
-
-                }
-            );
-
-
-        /* Scroll to result */
-
-        songResults.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
-
-        if (foundSong) {
-
-            showSong(foundSong);
-
-        } else {
-
-            showNoResult(
-                searchText
-            );
-
-        }
-
-    }
-
-
-    /* ================= ENTER SEARCH ================= */
-
-    songSearch.addEventListener(
-        "keydown",
-        function (event) {
-
-            if (event.key === "Enter") {
-
-                event.preventDefault();
-
-                searchSong();
-
-            }
-
-        }
-    );
-
-
-    /* ================= CLEAR SEARCH ================= */
-
-    songSearch.addEventListener(
-        "input",
-        function () {
-
-            const searchText =
-                songSearch.value.trim();
-
-            if (searchText === "") {
-
-                songResultCard.classList.add(
-                    "empty"
-                );
-
-                searchMessage.textContent =
-                    "Search for one of the available Tamil songs.";
-
-            }
-
-        }
-    );
+});
 
 });
