@@ -13,6 +13,7 @@ const signupForm = document.getElementById("signupForm");
 const loginForm = document.getElementById("loginForm");
 
 
+
 /* ================= SHOW SIGN UP ================= */
 
 signupChoice.addEventListener("click", function () {
@@ -32,6 +33,12 @@ loginChoice.addEventListener("click", function () {
 
 });
 
+
+/* ================= BACK FROM SIGN In Card ================= */
+
+document.getElementById("backcard").addEventListener("click", function() {
+        history.back();
+    });
 
 /* ================= BACK FROM SIGN UP ================= */
 

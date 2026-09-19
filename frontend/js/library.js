@@ -1,4 +1,4 @@
-const songs = [
+const librarySongs = [
     {
         title: "Midnight Melody",
         artist: "Demo Artist",
@@ -39,7 +39,10 @@ const searchSuggestions = document.getElementById("search-suggestions");
 const sortSelect = document.getElementById("sort-songs");
 const songCount = document.querySelector(".song-count");
 
-let currentSongs = [...songs];
+if (!songGrid || !searchInput || !sortSelect || !songCount) {
+    console.warn("Library page elements were not found.");
+} else {
+    let currentSongs = [...librarySongs];
 
 function renderSuggestions(value) {
 
@@ -70,43 +73,19 @@ function renderSuggestions(value) {
 }
 
 function renderSongs(list) {
+    function renderSongs(list) {
+        songGrid.innerHTML = "";
 
-    songGrid.innerHTML = "";
-
-    if (list.length === 0) {
-
-        songGrid.innerHTML = `
-            <div class="no-results">
-                <h3>No songs found</h3>
-                <p>Try searching for another song, artist, or key.</p>
-            </div>
-        `;
-
-        songCount.textContent = "0 songs";
-        return;
-    }
-
-    list.forEach((song, index) => {
-
-        const card = document.createElement("article");
-
-        card.className = "song-card";
-
-        card.innerHTML = `
-            <div class="song-art ${song.art}">
-                ${song.icon}
-            </div>
-
-            <div class="song-info">
-
-                <h3>${song.title}</h3>
-
-                <p>${song.artist}</p>
-
-                <div class="song-meta">
-                    <span>Key ${song.key}</span>
-                    <span>${song.bpm} BPM</span>
+        if (list.length === 0) {
+            songGrid.innerHTML = `
+                <div class="no-results">
+                    <h3>No songs found</h3>
+                    <p>Try searching for another song, artist, or key.</p>
                 </div>
+            `;
+            songCount.textContent = "0 songs";
+            return;
+        }
 
             </div>
 
@@ -164,72 +143,90 @@ document.addEventListener("click", function (event) {
     }
 });
 
+        list.forEach((song, index) => {
+            const card = document.createElement("article");
+            card.className = "song-card";
 
-/* SORT */
+            card.innerHTML = `
+                <div class="song-art ${song.art}">
+                    ${song.icon}
+                </div>
 
-sortSelect.addEventListener("change", function () {
+                <div class="song-info">
+                    <h3>${song.title}</h3>
+                    <p>${song.artist}</p>
 
-    let sortedSongs = [...currentSongs];
+                    <div class="song-meta">
+                        <span>Key ${song.key}</span>
+                        <span>${song.bpm} BPM</span>
+                    </div>
+                </div>
 
-    if (this.value === "az") {
+                <button
+                    class="more-btn"
+                    data-index="${index}"
+                    aria-label="More options">
+                    ⋮
+                </button>
+            `;
 
-        sortedSongs.sort((a, b) =>
-            a.title.localeCompare(b.title)
-        );
+            songGrid.appendChild(card);
+        });
 
-    } else if (this.value === "key") {
-
-        sortedSongs.sort((a, b) =>
-            a.key.localeCompare(b.key)
-        );
+        songCount.textContent = `${list.length} ${list.length === 1 ? "song" : "songs"}`;
     }
 
-    renderSongs(sortedSongs);
-});
+    searchInput.addEventListener("input", function () {
+        const value = this.value.toLowerCase().trim();
 
-
-/* MORE BUTTON */
-
-songGrid.addEventListener("click", function (event) {
-
-    const button = event.target.closest(".more-btn");
-
-    if (!button) return;
-
-    const index = Number(button.dataset.index);
-    const song = currentSongs[index];
-
-    const action = prompt(
-        `${song.title}\n\nType:\n1 - Open Chords\n2 - Remove`
-    );
-
-    if (action === "1") {
-
-        alert(
-            `Opening chord sheet for "${song.title}".`
-        );
-
-    } else if (action === "2") {
-
-        const position = songs.indexOf(song);
-
-        if (position !== -1) {
-            songs.splice(position, 1);
-        }
-
-        currentSongs = currentSongs.filter(
-            item => item !== song
+        currentSongs = librarySongs.filter(song =>
+            song.title.toLowerCase().includes(value) ||
+            song.artist.toLowerCase().includes(value) ||
+            song.key.toLowerCase().includes(value)
         );
 
         renderSongs(currentSongs);
+    });
 
-        alert(`${song.title} was removed from your library.`);
-    }
-});
+    sortSelect.addEventListener("change", function () {
+        let sortedSongs = [...currentSongs];
 
+        if (this.value === "az") {
+            sortedSongs.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (this.value === "key") {
+            sortedSongs.sort((a, b) => a.key.localeCompare(b.key));
+        }
 
-/* INITIAL LOAD */
+        renderSongs(sortedSongs);
+    });
+
+    songGrid.addEventListener("click", function (event) {
+        const button = event.target.closest(".more-btn");
+        if (!button) return;
+
+        const index = Number(button.dataset.index);
+        const song = currentSongs[index];
+
+        const action = prompt(
+            `${song.title}\n\nType:\n1 - Open Chords\n2 - Remove`
+        );
+
+        if (action === "1") {
+            alert(`Opening chord sheet for "${song.title}".`);
+        } else if (action === "2") {
+            const position = librarySongs.indexOf(song);
+            if (position !== -1) {
+                librarySongs.splice(position, 1);
+            }
+
+            currentSongs = currentSongs.filter(item => item !== song);
+            renderSongs(currentSongs);
+            alert(`${song.title} was removed from your library.`);
+        }
+    });
 
 renderSongs(currentSongs);
 
 
+    renderSongs(currentSongs);
+}
