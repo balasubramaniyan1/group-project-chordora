@@ -53,8 +53,8 @@ body {
     gap: 30px;
 }
 
-.navbar nav a,
-.sign-in {
+.navbar nav a
+{
     color: #989ba7;
     text-decoration: none;
     font-size: 14px;
@@ -62,23 +62,11 @@ body {
 }
 
 .navbar nav a:hover,
-.navbar nav a.active,
-.sign-in:hover {
+.navbar nav a.active
+ {
     color: #ffffff;
 }
 
-.sign-in {
-    padding: 10px 17px;
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.sign-in:hover {
-    color: #e5b866;
-    background: rgba(229, 184, 102, 0.12);
-    border-color: rgba(229, 184, 102, 0.4);
-}
 
 /* ================= MAIN ================= */
 
