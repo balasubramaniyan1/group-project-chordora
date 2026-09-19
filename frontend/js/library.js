@@ -35,58 +35,44 @@ const librarySongs = [
 
 const songGrid = document.getElementById("song-grid");
 const searchInput = document.getElementById("library-search");
-const suggestionsBox = document.getElementById("search-suggestions");
+const searchSuggestions = document.getElementById("search-suggestions");
 const sortSelect = document.getElementById("sort-songs");
 const songCount = document.querySelector(".song-count");
 
-if (!songGrid || !searchInput || !suggestionsBox || !sortSelect || !songCount) {
+if (!songGrid || !searchInput || !sortSelect || !songCount) {
     console.warn("Library page elements were not found.");
 } else {
     let currentSongs = [...librarySongs];
 
-    function hideSuggestions() {
-        suggestionsBox.innerHTML = "";
-        suggestionsBox.classList.remove("visible");
+function renderSuggestions(value) {
+
+    const query = value.toLowerCase().trim();
+
+    if (!query) {
+        searchSuggestions.innerHTML = "";
+        searchSuggestions.classList.remove("visible");
+        return;
     }
 
-    function renderSuggestions(value) {
-        const query = value.toLowerCase().trim();
-        const matches = librarySongs.filter(song =>
-            song.title.toLowerCase().includes(query) ||
-            song.artist.toLowerCase().includes(query) ||
-            song.key.toLowerCase().includes(query)
-        ).slice(0, 5);
+    const matches = songs.filter(song =>
+        song.title.toLowerCase().includes(query) ||
+        song.artist.toLowerCase().includes(query) ||
+        song.key.toLowerCase().includes(query)
+    ).slice(0, 5);
 
-        suggestionsBox.innerHTML = "";
-
-        if (!matches.length) {
-            hideSuggestions();
-            return;
-        }
-
-        matches.forEach(song => {
-            const suggestion = document.createElement("button");
-            suggestion.type = "button";
-            suggestion.className = "suggestion-item";
-            suggestion.setAttribute("role", "option");
-            suggestion.innerHTML = `
+    searchSuggestions.innerHTML = matches.length
+        ? matches.map(song => `
+            <button class="suggestion-item" type="button" data-title="${song.title}">
                 <strong>${song.title}</strong>
-                <span>${song.artist} · Key ${song.key}</span>
-            `;
+                <span>${song.artist} | Key ${song.key}</span>
+            </button>
+        `).join("")
+        : `<div class="suggestion-item"><span>No matching songs</span></div>`;
 
-            suggestion.addEventListener("click", () => {
-                searchInput.value = song.title;
-                currentSongs = [song];
-                renderSongs(currentSongs);
-                hideSuggestions();
-            });
+    searchSuggestions.classList.add("visible");
+}
 
-            suggestionsBox.appendChild(suggestion);
-        });
-
-        suggestionsBox.classList.add("visible");
-    }
-
+function renderSongs(list) {
     function renderSongs(list) {
         songGrid.innerHTML = "";
 
@@ -100,6 +86,62 @@ if (!songGrid || !searchInput || !suggestionsBox || !sortSelect || !songCount) {
             songCount.textContent = "0 songs";
             return;
         }
+
+            </div>
+
+            <button
+                class="more-btn"
+                data-index="${index}"
+                aria-label="More options">
+                ⋮
+            </button>
+        `;
+
+        songGrid.appendChild(card);
+    });
+
+    songCount.textContent =
+        `${list.length} ${list.length === 1 ? "song" : "songs"}`;
+}
+
+
+/* SEARCH */
+
+searchInput.addEventListener("input", function () {
+
+    const value = this.value.toLowerCase().trim();
+
+    currentSongs = songs.filter(song =>
+        song.title.toLowerCase().includes(value) ||
+        song.artist.toLowerCase().includes(value) ||
+        song.key.toLowerCase().includes(value)
+    );
+
+    renderSongs(currentSongs);
+    renderSuggestions(this.value);
+});
+
+searchSuggestions.addEventListener("click", function (event) {
+
+    const suggestion = event.target.closest(".suggestion-item[data-title]");
+
+    if (!suggestion) return;
+
+    searchInput.value = suggestion.dataset.title;
+    currentSongs = songs.filter(song =>
+        song.title === suggestion.dataset.title
+    );
+
+    renderSongs(currentSongs);
+    searchSuggestions.classList.remove("visible");
+});
+
+document.addEventListener("click", function (event) {
+
+    if (!event.target.closest(".search-box")) {
+        searchSuggestions.classList.remove("visible");
+    }
+});
 
         list.forEach((song, index) => {
             const card = document.createElement("article");
@@ -137,8 +179,6 @@ if (!songGrid || !searchInput || !suggestionsBox || !sortSelect || !songCount) {
     searchInput.addEventListener("input", function () {
         const value = this.value.toLowerCase().trim();
 
-        renderSuggestions(this.value);
-
         currentSongs = librarySongs.filter(song =>
             song.title.toLowerCase().includes(value) ||
             song.artist.toLowerCase().includes(value) ||
@@ -146,26 +186,6 @@ if (!songGrid || !searchInput || !suggestionsBox || !sortSelect || !songCount) {
         );
 
         renderSongs(currentSongs);
-    });
-
-    searchInput.addEventListener("focus", function () {
-        renderSuggestions(this.value);
-    });
-
-    searchInput.addEventListener("keydown", function (event) {
-        if (event.key !== "Enter") return;
-
-        const firstSuggestion = suggestionsBox.querySelector(".suggestion-item");
-        if (!firstSuggestion) return;
-
-        event.preventDefault();
-        firstSuggestion.click();
-    });
-
-    document.addEventListener("click", function (event) {
-        if (!event.target.closest(".search-box")) {
-            hideSuggestions();
-        }
     });
 
     sortSelect.addEventListener("change", function () {
@@ -204,6 +224,9 @@ if (!songGrid || !searchInput || !suggestionsBox || !sortSelect || !songCount) {
             alert(`${song.title} was removed from your library.`);
         }
     });
+
+renderSongs(currentSongs);
+
 
     renderSongs(currentSongs);
 }
