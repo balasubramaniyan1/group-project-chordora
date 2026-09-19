@@ -125,7 +125,7 @@ const songKey=document.getElementById("songKey");
 const songChords=document.getElementById("songChords");
 const searchMessage=document.getElementById("searchMessage");
 
-if(!songSearch)return;
+if(!songSearch || !songResultCard || !songTitle || !songArtist || !songKey || !songChords || !searchMessage) return;
 
 
 /* SHOW SONG */
@@ -195,6 +195,8 @@ function searchSong(){
 
     if(text===""){
         songResultCard.classList.add("empty");
+        searchMessage.textContent=
+            "Search for one of the available Tamil songs.";
         return;
     }
 
@@ -203,10 +205,12 @@ function searchSong(){
                song.artist.toLowerCase().includes(text);
     });
 
-    songResults.scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-    });
+    if (songResults) {
+        songResults.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
+    }
 
     if(found){
         showSong(found);
@@ -228,7 +232,7 @@ songSearch.addEventListener("keydown",function(event){
 });
 
 
-/* CLEAR SEARCH */
+/* LIVE SEARCH */
 
 songSearch.addEventListener("input",function(){
 
@@ -238,7 +242,10 @@ songSearch.addEventListener("input",function(){
 
         searchMessage.textContent=
             "Search for one of the available Tamil songs.";
+        return;
     }
+
+    searchSong();
 
 });
 
