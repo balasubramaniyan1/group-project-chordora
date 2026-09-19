@@ -35,13 +35,57 @@ const librarySongs = [
 
 const songGrid = document.getElementById("song-grid");
 const searchInput = document.getElementById("library-search");
+const suggestionsBox = document.getElementById("search-suggestions");
 const sortSelect = document.getElementById("sort-songs");
 const songCount = document.querySelector(".song-count");
 
-if (!songGrid || !searchInput || !sortSelect || !songCount) {
+if (!songGrid || !searchInput || !suggestionsBox || !sortSelect || !songCount) {
     console.warn("Library page elements were not found.");
 } else {
     let currentSongs = [...librarySongs];
+
+    function hideSuggestions() {
+        suggestionsBox.innerHTML = "";
+        suggestionsBox.classList.remove("visible");
+    }
+
+    function renderSuggestions(value) {
+        const query = value.toLowerCase().trim();
+        const matches = librarySongs.filter(song =>
+            song.title.toLowerCase().includes(query) ||
+            song.artist.toLowerCase().includes(query) ||
+            song.key.toLowerCase().includes(query)
+        ).slice(0, 5);
+
+        suggestionsBox.innerHTML = "";
+
+        if (!matches.length) {
+            hideSuggestions();
+            return;
+        }
+
+        matches.forEach(song => {
+            const suggestion = document.createElement("button");
+            suggestion.type = "button";
+            suggestion.className = "suggestion-item";
+            suggestion.setAttribute("role", "option");
+            suggestion.innerHTML = `
+                <strong>${song.title}</strong>
+                <span>${song.artist} · Key ${song.key}</span>
+            `;
+
+            suggestion.addEventListener("click", () => {
+                searchInput.value = song.title;
+                currentSongs = [song];
+                renderSongs(currentSongs);
+                hideSuggestions();
+            });
+
+            suggestionsBox.appendChild(suggestion);
+        });
+
+        suggestionsBox.classList.add("visible");
+    }
 
     function renderSongs(list) {
         songGrid.innerHTML = "";
@@ -93,6 +137,8 @@ if (!songGrid || !searchInput || !sortSelect || !songCount) {
     searchInput.addEventListener("input", function () {
         const value = this.value.toLowerCase().trim();
 
+        renderSuggestions(this.value);
+
         currentSongs = librarySongs.filter(song =>
             song.title.toLowerCase().includes(value) ||
             song.artist.toLowerCase().includes(value) ||
@@ -100,6 +146,26 @@ if (!songGrid || !searchInput || !sortSelect || !songCount) {
         );
 
         renderSongs(currentSongs);
+    });
+
+    searchInput.addEventListener("focus", function () {
+        renderSuggestions(this.value);
+    });
+
+    searchInput.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter") return;
+
+        const firstSuggestion = suggestionsBox.querySelector(".suggestion-item");
+        if (!firstSuggestion) return;
+
+        event.preventDefault();
+        firstSuggestion.click();
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!event.target.closest(".search-box")) {
+            hideSuggestions();
+        }
     });
 
     sortSelect.addEventListener("change", function () {
