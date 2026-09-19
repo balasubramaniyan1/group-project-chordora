@@ -22,31 +22,33 @@ body {
 
 .playlist-navbar {
     width: 100%;
-    min-height: 76px;
-    padding: 14px 6%;
+    min-height: 72px;
+    padding: 12px 6%;
     display: flex;
+    position: sticky;
     align-items: center;
     justify-content: space-between;
-    gap: 30px;
-    background: rgba(7, 8, 13, 0.95);
+    background-color: #000000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    top: 0;
+    z-index: 999;
 }
 
 .playlist-logo img {
-     width: 110px;
+    width: 110px;
     height: auto;
-    border-radius:0;
+    border-radius: 0;
     object-fit: contain;
     display: block;
 }
+
 .playlist-nav {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 30px;
 }
 
-.playlist-nav a,
-.playlist-signin {
+.playlist-nav a {
     color: #b9bbc5;
     text-decoration: none;
     font-size: 14px;
@@ -55,18 +57,7 @@ body {
 
 .playlist-nav a:hover,
 .playlist-nav a.active {
-    color:  #8b7cff;
-}
-
-.playlist-signin {
-    padding: 10px 20px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 25px;
-}
-
-.playlist-signin:hover {
-    background: #ffffff;
-    color: #07080d;
+    color: #ffffff;
 }
 
 
@@ -185,11 +176,9 @@ body {
     padding: 28px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 22px;
-    background: linear-gradient(
-        145deg,
-        rgba(255, 255, 255, 0.07),
-        rgba(255, 255, 255, 0.025)
-    );
+    background: linear-gradient(145deg,
+            rgba(255, 255, 255, 0.07),
+            rgba(255, 255, 255, 0.025));
     transition: 0.35s;
 }
 
@@ -396,11 +385,9 @@ body {
     justify-content: space-between;
     gap: 30px;
     border-radius: 24px;
-    background: linear-gradient(
-        135deg,
-        rgba(155, 140, 255, 0.13),
-        rgba(255, 255, 255, 0.04)
-    );
+    background: linear-gradient(135deg,
+            rgba(155, 140, 255, 0.13),
+            rgba(255, 255, 255, 0.04));
 }
 
 .playlist-tip h2 {
@@ -453,22 +440,25 @@ body {
 ================================ */
 
 .playlist-footer {
-    width: 88%;
-    max-width: 1250px;
-    margin: 0 auto 25px;
-    padding: 35px;
+    width: 100%;
+    padding: 30px 5%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 25px;
-    border-radius: 25px;
-    background: #111219;
+    background: #10121a;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .footer-brand img {
-   width: 110px;
+    width: 110px;
     height: auto;
-    border-radius:0;
+    border-radius: 0;
     object-fit: contain;
     display: block;
 }
@@ -477,22 +467,6 @@ body {
 .copyright {
     color: #777b89;
     font-size: 12px;
-}
-
-.footer-links {
-    display: flex;
-    gap: 25px;
-}
-
-.footer-links a {
-    color: #9a9da9;
-    text-decoration: none;
-    font-size: 13px;
-    transition: 0.3s;
-}
-
-.footer-links a:hover {
-    color: #ffffff;
 }
 
 
@@ -522,9 +496,6 @@ body {
         padding: 12px 5%;
     }
 
-    .playlist-nav {
-        display: none;
-    }
 
     .playlist-page {
         width: 90%;
@@ -555,13 +526,12 @@ body {
     }
 
     .playlist-footer {
-        width: 90%;
-        align-items: flex-start;
+        text-align: center;
         flex-direction: column;
     }
 
-    .footer-links {
-        flex-wrap: wrap;
+    .footer-brand {
+        flex-direction: column;
     }
 
     .modal-box {
