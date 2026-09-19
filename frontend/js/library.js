@@ -44,35 +44,33 @@ if (!songGrid || !searchInput || !sortSelect || !songCount) {
 } else {
     let currentSongs = [...librarySongs];
 
-function renderSuggestions(value) {
+    function renderSuggestions(value) {
+        const query = value.toLowerCase().trim();
 
-    const query = value.toLowerCase().trim();
+        if (!query) {
+            searchSuggestions.innerHTML = "";
+            searchSuggestions.classList.remove("visible");
+            return;
+        }
 
-    if (!query) {
-        searchSuggestions.innerHTML = "";
-        searchSuggestions.classList.remove("visible");
-        return;
+        const matches = librarySongs.filter(song =>
+            song.title.toLowerCase().includes(query) ||
+            song.artist.toLowerCase().includes(query) ||
+            song.key.toLowerCase().includes(query)
+        ).slice(0, 5);
+
+        searchSuggestions.innerHTML = matches.length
+            ? matches.map(song => `
+                <button class="suggestion-item" type="button" data-title="${song.title}">
+                    <strong>${song.title}</strong>
+                    <span>${song.artist} | Key ${song.key}</span>
+                </button>
+            `).join("")
+            : `<div class="suggestion-item"><span>No matching songs</span></div>`;
+
+        searchSuggestions.classList.add("visible");
     }
 
-    const matches = songs.filter(song =>
-        song.title.toLowerCase().includes(query) ||
-        song.artist.toLowerCase().includes(query) ||
-        song.key.toLowerCase().includes(query)
-    ).slice(0, 5);
-
-    searchSuggestions.innerHTML = matches.length
-        ? matches.map(song => `
-            <button class="suggestion-item" type="button" data-title="${song.title}">
-                <strong>${song.title}</strong>
-                <span>${song.artist} | Key ${song.key}</span>
-            </button>
-        `).join("")
-        : `<div class="suggestion-item"><span>No matching songs</span></div>`;
-
-    searchSuggestions.classList.add("visible");
-}
-
-function renderSongs(list) {
     function renderSongs(list) {
         songGrid.innerHTML = "";
 
@@ -86,62 +84,6 @@ function renderSongs(list) {
             songCount.textContent = "0 songs";
             return;
         }
-
-            </div>
-
-            <button
-                class="more-btn"
-                data-index="${index}"
-                aria-label="More options">
-                ⋮
-            </button>
-        `;
-
-        songGrid.appendChild(card);
-    });
-
-    songCount.textContent =
-        `${list.length} ${list.length === 1 ? "song" : "songs"}`;
-}
-
-
-/* SEARCH */
-
-searchInput.addEventListener("input", function () {
-
-    const value = this.value.toLowerCase().trim();
-
-    currentSongs = songs.filter(song =>
-        song.title.toLowerCase().includes(value) ||
-        song.artist.toLowerCase().includes(value) ||
-        song.key.toLowerCase().includes(value)
-    );
-
-    renderSongs(currentSongs);
-    renderSuggestions(this.value);
-});
-
-searchSuggestions.addEventListener("click", function (event) {
-
-    const suggestion = event.target.closest(".suggestion-item[data-title]");
-
-    if (!suggestion) return;
-
-    searchInput.value = suggestion.dataset.title;
-    currentSongs = songs.filter(song =>
-        song.title === suggestion.dataset.title
-    );
-
-    renderSongs(currentSongs);
-    searchSuggestions.classList.remove("visible");
-});
-
-document.addEventListener("click", function (event) {
-
-    if (!event.target.closest(".search-box")) {
-        searchSuggestions.classList.remove("visible");
-    }
-});
 
         list.forEach((song, index) => {
             const card = document.createElement("article");
@@ -186,10 +128,32 @@ document.addEventListener("click", function (event) {
         );
 
         renderSongs(currentSongs);
+        renderSuggestions(this.value);
+    });
+
+    searchSuggestions.addEventListener("click", function (event) {
+        const suggestion = event.target.closest(".suggestion-item[data-title]");
+
+        if (!suggestion) return;
+
+        searchInput.value = suggestion.dataset.title;
+        currentSongs = librarySongs.filter(song =>
+            song.title === suggestion.dataset.title
+        );
+
+        renderSongs(currentSongs);
+        searchSuggestions.innerHTML = "";
+        searchSuggestions.classList.remove("visible");
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!event.target.closest(".search-box")) {
+            searchSuggestions.classList.remove("visible");
+        }
     });
 
     sortSelect.addEventListener("change", function () {
-        let sortedSongs = [...currentSongs];
+        const sortedSongs = [...currentSongs];
 
         if (this.value === "az") {
             sortedSongs.sort((a, b) => a.title.localeCompare(b.title));
@@ -197,7 +161,8 @@ document.addEventListener("click", function (event) {
             sortedSongs.sort((a, b) => a.key.localeCompare(b.key));
         }
 
-        renderSongs(sortedSongs);
+        currentSongs = sortedSongs;
+        renderSongs(currentSongs);
     });
 
     songGrid.addEventListener("click", function (event) {
@@ -206,6 +171,7 @@ document.addEventListener("click", function (event) {
 
         const index = Number(button.dataset.index);
         const song = currentSongs[index];
+        if (!song) return;
 
         const action = prompt(
             `${song.title}\n\nType:\n1 - Open Chords\n2 - Remove`
@@ -214,7 +180,10 @@ document.addEventListener("click", function (event) {
         if (action === "1") {
             alert(`Opening chord sheet for "${song.title}".`);
         } else if (action === "2") {
-            const position = librarySongs.indexOf(song);
+            const position = librarySongs.findIndex(item =>
+                item.title === song.title && item.artist === song.artist
+            );
+
             if (position !== -1) {
                 librarySongs.splice(position, 1);
             }
@@ -224,9 +193,6 @@ document.addEventListener("click", function (event) {
             alert(`${song.title} was removed from your library.`);
         }
     });
-
-renderSongs(currentSongs);
-
 
     renderSongs(currentSongs);
 }
